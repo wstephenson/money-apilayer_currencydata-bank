@@ -28,17 +28,17 @@ class Money
     # App id not set error
     class NoAccessKey < StandardError; end
 
-    # CurrencylayerBank base class
-    class CurrencylayerBank < Money::Bank::VariableExchange
-      # CurrencylayerBank url
+    # ApilayerCurrencyBank base class
+    class ApilayerCurrencyBank < Money::Bank::VariableExchange
+      # ApilayerCurrencyBank url
       CL_URL = 'http://api.currencylayer.com/live'.freeze
-      # CurrencylayerBank secure url
+      # ApilayerCurrencyBank secure url
       CL_SECURE_URL = CL_URL.sub('http:', 'https:')
       # Default base currency
       CL_SOURCE = 'USD'.freeze
 
-      # Use https to fetch rates from CurrencylayerBank
-      # CurrencylayerBank only allows http as connection
+      # Use https to fetch rates from ApilayerCurrencyBank
+      # ApilayerCurrencyBank only allows http as connection
       # for the free plan users.
       #
       # @param value [Boolean] true for secure connection
@@ -57,7 +57,7 @@ class Money
       # @return [String,Pathname,Proc] chosen cache system
       attr_accessor :cache
 
-      # Parsed CurrencylayerBank result as Hash
+      # Parsed ApilayerCurrencyBank result as Hash
       attr_reader :rates
 
       # Get the timestamp of rates in memory
@@ -75,7 +75,7 @@ class Money
       attr_writer :ttl_in_seconds
 
       # Set the base currency for all rates. By default, USD is used.
-      # CurrencylayerBank only allows USD as base currency
+      # ApilayerCurrencyBank only allows USD as base currency
       # for the free plan users.
       #
       # @example
@@ -100,7 +100,7 @@ class Money
         @ttl_in_seconds ||= 0
       end
 
-      # Update all rates from CurrencylayerBank JSON
+      # Update all rates from ApilayerCurrencyBank JSON
       # @return [Array] array of exchange rates
       def update_rates(straight = false)
         store.reset!
@@ -166,7 +166,7 @@ class Money
         rates_timestamp != rates_mem_timestamp
       end
 
-      # Source url of CurrencylayerBank
+      # Source url of ApilayerCurrencyBank
       # defined with access_key and secure_connection
       # @return [String] the remote API url
       def source_url

@@ -3,12 +3,12 @@
 
 require File.expand_path(File.join(File.dirname(__FILE__), 'test_helper'))
 
-describe Money::Bank::CurrencylayerBank do
+describe Money::Bank::ApilayerCurrencyBank do
   Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
-  subject { Money::Bank::CurrencylayerBank.new }
-  let(:url) { Money::Bank::CurrencylayerBank::CL_URL }
-  let(:secure_url) { Money::Bank::CurrencylayerBank::CL_SECURE_URL }
-  let(:source) { Money::Bank::CurrencylayerBank::CL_SOURCE }
+  subject { Money::Bank::ApilayerCurrencyBank.new }
+  let(:url) { Money::Bank::ApilayerCurrencyBank::CL_URL }
+  let(:secure_url) { Money::Bank::ApilayerCurrencyBank::CL_SECURE_URL }
+  let(:source) { Money::Bank::ApilayerCurrencyBank::CL_SOURCE }
   let(:temp_cache_path) do
     File.expand_path(File.join(File.dirname(__FILE__), 'temp.json'))
   end
@@ -192,7 +192,7 @@ describe Money::Bank::CurrencylayerBank do
       subject.update_rates
     end
 
-    it 'should update itself with exchange rates from CurrencylayerBank' do
+    it 'should update itself with exchange rates from ApilayerCurrencyBank' do
       subject.rates.keys.each do |currency|
         next unless Money::Currency.find(currency)
         subject.get_rate('USD', currency).must_be :>, 0

@@ -3,7 +3,7 @@
 
 require 'minitest/autorun'
 require 'rr'
-require 'money/bank/currencylayer_bank'
+require 'money/bank/apilayer_currencydata_bank'
 require 'monetize'
 require 'timecop'
 require 'pry'
