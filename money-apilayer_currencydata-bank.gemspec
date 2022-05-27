@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |s|
-  s.name = 'money-currencylayer-bank'
-  s.version = '0.5.8'
+  s.name = 'money-apilayer_currencydata-bank'
+  s.version = '0.6.0'
   s.date = Time.now.utc.strftime('%Y-%m-%d')
-  s.homepage = "http://github.com/phlegx/#{s.name}"
-  s.authors = ['Egon Zemmer']
+  s.homepage = "http://github.com/wstephenson/#{s.name}"
+  s.authors = ['Egon Zemmer', 'Will Stephenson']
   s.email = 'office@phlegx.com'
   s.description = 'A gem that calculates the exchange rate using published ' \
-    'rates from currencylayer.com. Compatible with the money gem.'
+    'rates from apilayer.com. Forked from phlegx/money-currencylayer-bank. ' \
+    ' Compatible with the money gem.'
   s.summary = 'A gem that calculates the exchange rate using published rates ' \
-    'from currencylayer.com.'
+    'from apilayer.com.'
   s.extra_rdoc_files = %w[README.md]
   s.files = Dir['LICENSE', 'README.md', 'Gemfile', 'lib/**/*.rb',
                 'test/**/*']
