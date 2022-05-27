@@ -1,4 +1,4 @@
-# Money Currencylayer Bank
+# Money Apilayer CurrencyData Bank
 
 [![Gem Version](https://badge.fury.io/rb/money-currencylayer-bank.svg)](https://rubygems.org/gems/money-currencylayer-bank)
 [![Gem](https://img.shields.io/gem/dt/money-currencylayer-bank.svg?maxAge=2592000)](https://rubygems.org/gems/money-currencylayer-bank)
@@ -8,9 +8,21 @@
 [![License](https://img.shields.io/github/license/phlegx/money-currencylayer-bank.svg)](http://opensource.org/licenses/MIT)
 
 A gem that calculates the exchange rate using published rates from
-[currencylayer.com](https://currencylayer.com/)
+[apilayer.com](https://apilayer.com/marketplace/currency_data-api)
 
-## Currencylayer API
+Forked from [phlegx/money-currencylayer-bank](https://github.com/phlegx/money-currencylayer-bank) because
+
+## Reason for fork
+
+currencylayer.com is no longer signing up new accounts, and is redirecting to apilayer.com instead.
+The Apilayer Currency Data API is largely the same as the currencylayer API used by the upstream gem.
+
+## Differences to `money-currencylayer-bank`
+- apilayer.com APIs take an `apikey` header rather than a parameter
+- Apilayer CurrencyData allows other source currencies than USD for free accounts, removing the need for cross conversion
+- `terms` and `privacy` fields are no longer sent in the response
+
+## Currency data API
 
 ~~~ json
 {
@@ -28,7 +40,6 @@ A gem that calculates the exchange rate using published rates from
 }
 ~~~
 
-See more about Currencylayer product plans on https://currencylayer.com/product.
 
 ## Features
 
@@ -46,7 +57,7 @@ See more about Currencylayer product plans on https://currencylayer.com/product.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'money-currencylayer-bank'
+gem 'money-apilayer_currencydata-bank'
 ```
 
 And then execute:
@@ -55,15 +66,15 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install money-currencylayer-bank
+    $ gem install money-apilayer_currencydata-bank
 
 ## Usage
 
 ~~~ ruby
 # Minimal requirements.
-require 'money/bank/currencylayer_bank'
-mclb = Money::Bank::CurrencylayerBank.new
-mclb.access_key = 'your access_key from https://currencylayer.com/product'
+require 'money/bank/apilayer_currencydata_bank'
+mclb = Money::Bank::ApilayerCurrencyBank.new
+mclb.access_key = 'your access_key from https://apilayer.com/account'
 
 # (optional)
 # Set the base currency for all rates. By default, USD is used.
@@ -94,14 +105,14 @@ mclb.update_rates
 # Set money rounding mode.
 Money.rounding_mode = BigDecimal::ROUND_HALF_EVEN
 
-# Set money default bank to Currencylayer bank.
+# Set money default bank to ApiLayer Currence Data bank.
 Money.default_bank = mclb
 ~~~
 
 ### More methods
 
 ~~~ ruby
-mclb = Money::Bank::CurrencylayerBank.new
+mclb = Money::Bank::ApilayerCurrencyBank.new
 
 # Returns the base currency set for all rates.
 mclb.source
@@ -143,11 +154,11 @@ See more on https://github.com/RubyMoney/money.
 You can also use it in Rails with the gem [money-rails](https://github.com/RubyMoney/money-rails).
 
 ~~~ ruby
-require 'money/bank/currencylayer_bank'
+require 'money/bank/apilayer_currencydata_bank'
 
 MoneyRails.configure do |config|
-  mclb = Money::Bank::CurrencylayerBank.new
-  mclb.access_key = 'your access_key from https://currencylayer.com/product'
+  mclb = Money::Bank::ApilayerCurrencyBank.new
+  mclb.access_key = 'your access_key from https://apilayer.com/account'
   mclb.update_rates
 
   config.default_bank = mclb
@@ -161,7 +172,7 @@ perhaps with Redis or just a thread safe `Hash` (global). For example:
 
 ~~~ ruby
 mclb.cache = Proc.new do |v|
-  key = 'money:currencylayer_bank'
+  key = 'money:apilayer_currencybank'
   if v
     Thread.current[key] = v
   else
