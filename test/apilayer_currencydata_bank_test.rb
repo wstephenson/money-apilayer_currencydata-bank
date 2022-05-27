@@ -164,22 +164,19 @@ describe Money::Bank::ApilayerCurrencyBank do
     it "should use the non-secure http url if secure_connection isn't set" do
       subject.secure_connection = nil
       subject.access_key = TEST_ACCESS_KEY
-      _(subject.source_url).must_equal "#{url}?source=#{source}&"\
-                                    "access_key=#{TEST_ACCESS_KEY}"
+      _(subject.source_url).must_equal "#{url}?source=#{source}"
     end
 
     it 'should use the non-secure http url if secure_connection is false' do
       subject.secure_connection = false
       subject.access_key = TEST_ACCESS_KEY
-      _(subject.source_url).must_equal "#{url}?source=#{source}&"\
-                                    "access_key=#{TEST_ACCESS_KEY}"
+      _(subject.source_url).must_equal "#{url}?source=#{source}"
     end
 
     it 'should use the secure https url if secure_connection is set to true' do
       subject.secure_connection = true
       subject.access_key = TEST_ACCESS_KEY
-      _(subject.source_url).must_equal "#{secure_url}?source=#{source}&"\
-                                    "access_key=#{TEST_ACCESS_KEY}"
+      _(subject.source_url).must_equal "#{secure_url}?source=#{source}"
       _(subject.source_url).must_include 'https://'
     end
   end

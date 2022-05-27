@@ -31,7 +31,7 @@ class Money
     # ApilayerCurrencyBank base class
     class ApilayerCurrencyBank < Money::Bank::VariableExchange
       # ApilayerCurrencyBank url
-      CL_URL = 'http://api.currencylayer.com/live'.freeze
+      CL_URL = 'http://api.apilayer.com/currency_data/live'.freeze
       # ApilayerCurrencyBank secure url
       CL_SECURE_URL = CL_URL.sub('http:', 'https:')
       # Default base currency
@@ -173,7 +173,7 @@ class Money
         raise NoAccessKey if access_key.nil? || access_key.empty?
         cl_url = CL_URL
         cl_url = CL_SECURE_URL if secure_connection
-        "#{cl_url}?source=#{source}&access_key=#{access_key}"
+        "#{cl_url}?source=#{source}"
       end
 
       # Get rates expiration time based on ttl
@@ -240,7 +240,7 @@ class Money
       # Opens an url and reads the content
       # @return [String] unparsed JSON content
       def open_url
-        URI.open(source_url).read
+        URI.open(source_url, 'apikey' => access_key).read
       rescue OpenURI::HTTPError
         ''
       end
