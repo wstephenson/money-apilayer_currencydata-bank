@@ -3,5 +3,6 @@
 *.swp
 TEST_APP_ID
 .project
+.idea
 .ruby-version
 .ruby-gemset
